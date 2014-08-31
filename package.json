@@ -23,6 +23,6 @@
     "hexo": ">= 1.0.0"
   },
   "dependencies": {
-    "node-sass": "~0.5.3"
+    "node-sass": "~0.7.0"
   }
 }
