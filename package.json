@@ -1,6 +1,6 @@
 {
   "name": "hexo-renderer-sass",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Sass renderer plugin for Hexo (wrapper around node-sass)",
   "main": "index",
   "repository": {
