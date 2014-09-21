@@ -5,7 +5,7 @@
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "git://github.com/knksmith57/hexo-renderer-sass.git"
+    "url": "git://github.com/krisbulman/hexo-renderer-sass.git"
   },
   "keywords": [
     "website",
