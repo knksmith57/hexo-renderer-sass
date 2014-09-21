@@ -1,48 +1,29 @@
 var
   sass = require('node-sass'),
-  fs   = require('fs'),
   path = require('path');
 
-// since I'm unaware of a way to specify multiple file extensions in the call
-// to hexo.extend.renderer.register, we define the callback up here so that we
-// can use it in both the .scss and .sass registration calls
 var sassAsyncRenderer = function(data, options, callback) {
-  // get a list of all subdirectories for the include paths
-  var
-    basePath = path.dirname(data.path),
-    paths = [];
+  var config = hexo.config.node_sass;
 
-  fs.readdir(basePath, function(err, files) {
-    if(err) {
-      callback(err);
-    }
+  // Processor options.
+  var options = {
+    data: data.text,
+    file: data.path,
+    outputStyle: config ? config.outputStyle || 'compressed' : 'compressed',
+    imagePath: config ? config.imagePath || 'images' : 'images',
+    sourceComments: config ? config.sourceComments || 'none' : 'none',
+    precision: config ? config.precision || 8 : 8
+  };
 
-    files.forEach(function(file, i) {
-      var f = basePath + '/' + file;
+  try {
+    data = sass.renderSync(options);
+  } catch (error) {
+    return callback(error);
+  }
 
-      if(fs.lstatSync(f).isDirectory()) {
-        paths.push(f + '/');
-      }
-    });
-
-    // now render the sass files
-    sass.render({
-      // data: data.text,
-      file: data.path,
-      includePaths: paths,
-
-      success: function(css) {
-        callback(null, css);
-      },
-
-      error: function(error) {
-        console.log(error);
-        callback(error);
-      }
-    });
-  });
+  return callback(null, data);
 }
 
-// associate the SASS renderer with .scss AND .sass extensions
+// associate the Sass renderer with .scss AND .sass extensions
 hexo.extend.renderer.register('scss', 'css', sassAsyncRenderer);
 hexo.extend.renderer.register('sass', 'css', sassAsyncRenderer);
