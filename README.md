@@ -1,4 +1,4 @@
-[SASS] renderer plugin for [Hexo]
+[Sass] renderer plugin for [Hexo]
 =================================
 
 A wrapper for [node-sass] by Andrew Nesbitt.
@@ -7,20 +7,14 @@ A wrapper for [node-sass] by Andrew Nesbitt.
 yours you'll need to add it for this to work. See Andrew's docs on [rebuilding
 binaries] for more info.
 
-## @import
-
-Couldn't figure out any super elegant way to set the includesPath for @imports,
-so we just flat out assume that any and all @import calls will be to
-subdirectories of whatever .scss or .sass file you call them in. Hopefully this
-works.
-
-## Compass
-
-... is not supported. [node-sass] doesn't support it, and this is just
-a wrapper around that. There was an [issue filed] for this, but it's closed now
-since most of Compass is [written as Ruby extensions]. Sorry bro, you'll be OK.
-
-
+####_config.yml
+```
+node_sass:
+  outputStyle: nested ('nested' and 'compressed' are supported)
+  precision: 8
+  imagePath: images
+  sourceComments: none (can be one of 'none', 'normal', 'map')
+```
 
 [Hexo]:                         http://zespia.tw/hexo
 [SASS]:                         http://sass-lang.com/
