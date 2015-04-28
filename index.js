@@ -1,29 +1,27 @@
-var
-  sass = require('node-sass'),
-  path = require('path');
+var sass   = require('node-sass');
+var extend = require('util')._extend;
 
-var sassAsyncRenderer = function(data, options, callback) {
-  var config = hexo.config.node_sass;
+var sassRenderer = function(data, options) {
 
-  // Processor options.
-  var options = {
+  var config = extend({
     data: data.text,
     file: data.path,
-    outputStyle: config ? config.outputStyle || 'compressed' : 'compressed',
-    imagePath: config ? config.imagePath || 'images' : 'images',
-    sourceComments: config ? config.sourceComments || 'none' : 'none',
-    precision: config ? config.precision || 8 : 8
-  };
+    outputStyle: 'nested',
+    sourceComments: false,
+  }, hexo.config.node_sass || {});
 
   try {
-    data = sass.renderSync(options);
-  } catch (error) {
-    return callback(error);
+    // node-sass result object:
+    // https://github.com/sass/node-sass#result-object
+    var result = sass.renderSync(config);
+    return result.css;
   }
-
-  return callback(null, data);
+  catch(error) {
+    console.error(error.toString());
+    throw error;
+  }
 }
 
 // associate the Sass renderer with .scss AND .sass extensions
-hexo.extend.renderer.register('scss', 'css', sassAsyncRenderer);
-hexo.extend.renderer.register('sass', 'css', sassAsyncRenderer);
+hexo.extend.renderer.register('scss', 'css', sassRenderer);
+hexo.extend.renderer.register('sass', 'css', sassRenderer);

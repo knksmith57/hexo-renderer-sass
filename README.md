@@ -1,24 +1,29 @@
 [Sass] renderer plugin for [Hexo]
 =================================
 
-A wrapper for [node-sass] by Andrew Nesbitt.
+> A hexo plugin for node-sass
 
-[node-sass] includes some pre-compiled binaries by default; if it doesn't have
-yours you'll need to add it for this to work. See Andrew's docs on [rebuilding
-binaries] for more info.
-
-####_config.yml
+## Install
+```sh
+$ npm install --save hexo-renderer-sass
 ```
+
+## Config
+By default, anything specified in `_config.yml` is [passed directly] to the
+`sass.render()` call. Check out the [node sass options docs] for all available
+settings.
+
+###_config.yml
+```yaml
 node_sass:
-  outputStyle: nested ('nested' and 'compressed' are supported)
-  precision: 8
-  imagePath: images
-  sourceComments: none (can be one of 'none', 'normal', 'map')
+  outputStyle: nested
+  precision: 5
+  sourceComments: false
 ```
 
-[Hexo]:                         http://zespia.tw/hexo
-[SASS]:                         http://sass-lang.com/
-[node-sass]:                    https://github.com/andrew/node-sass
-[rebuilding binaries]:          https://github.com/andrew/node-sass#rebuilding-binaries
-[issue filed]:                  https://github.com/andrew/node-sass/issues/54
-[written as Ruby extensions]:   https://github.com/chriseppstein/compass/tree/stable/lib/compass/sass_extensions
+[Hexo]:                   http://hexo.io
+[Sass]:                   http://sass-lang.com/
+[node-sass]:              https://github.com/andrew/node-sass
+[passed directly]:        index.js:#L14
+[node sass options docs]: https://github.com/sass/node-sass#options
+

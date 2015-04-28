@@ -1,18 +1,17 @@
 {
   "name": "hexo-renderer-sass",
-  "version": "0.0.5",
-  "description": "Sass renderer plugin for Hexo (wrapper around node-sass)",
+  "version": "0.1.0",
+  "description": "Sass renderer plugin for Hexo",
   "main": "index",
   "repository": {
     "type": "git",
     "url": "git://github.com/knksmith57/hexo-renderer-sass.git"
   },
   "keywords": [
-    "website",
-    "blog",
-    "cms",
-    "framework",
-    "hexo"
+    "hexo",
+    "sass",
+    "scss",
+    "renderer"
   ],
   "author": "Kyle Smith <knksmith57@gmail.com>",
   "license": {
@@ -23,6 +22,6 @@
     "hexo": ">= 1.0.0"
   },
   "dependencies": {
-    "node-sass": ">= 0.9.3"
+    "node-sass": "^2.1.1"
   }
 }
