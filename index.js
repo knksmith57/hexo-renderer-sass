@@ -3,12 +3,14 @@ var extend = require('util')._extend;
 
 var sassRenderer = function(data, options) {
 
-  var config = extend({
+  var config = {
     data: data.text,
     file: data.path,
     outputStyle: 'nested',
     sourceComments: false,
-  }, hexo.config.node_sass || {});
+  };
+  config = extend(config, hexo.theme.config.node_sass || {});
+  config = extend(config, hexo.config.node_sass || {});
 
   try {
     // node-sass result object:
