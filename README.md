@@ -13,13 +13,17 @@ By default, anything specified in `_config.yml` is [passed directly] to the
 `sass.render()` call. Check out the [node sass options docs] for all available
 settings.
 
-###_config.yml
+### _config.yml
 ```yaml
 node_sass:
   outputStyle: nested
   precision: 5
   sourceComments: false
 ```
+
+## ♥︎
+Questions, comments, concerns? --> [@knksmith57](https://twitter.com/knksmith57).
+
 
 [Hexo]:                   http://hexo.io
 [Sass]:                   http://sass-lang.com/
