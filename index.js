@@ -3,12 +3,18 @@ var extend = require('util')._extend;
 
 var sassRenderer = function(data, options) {
 
+  // support global and theme-specific config
+  var userConfig = extend(
+    hexo.theme.config.node_sass || {},
+    hexo.config.node_sass || {}
+  );
+
   var config = extend({
     data: data.text,
     file: data.path,
     outputStyle: 'nested',
     sourceComments: false,
-  }, hexo.config.node_sass || {});
+  }, userConfig);
 
   try {
     // node-sass result object:
