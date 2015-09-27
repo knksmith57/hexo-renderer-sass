@@ -20,7 +20,9 @@ var sassRenderer = function(data, options) {
     // node-sass result object:
     // https://github.com/sass/node-sass#result-object
     var result = sass.renderSync(config);
-    return result.css;
+    // result is now Buffer instead of String
+    // https://github.com/sass/node-sass/issues/711
+    return result.css.toString();
   }
   catch(error) {
     console.error(error.toString());
