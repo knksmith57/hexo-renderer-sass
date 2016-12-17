@@ -31,7 +31,10 @@ the following locations using a least-specific-first order:
 
 
 ## ♥︎
-Questions, comments, concerns? --> [@knksmith57](https://twitter.com/knksmith57).
+Questions, comments, concerns?
+* [@JLHwung](https://github.com/JLHwung)
+* [@jojoee](https://github.com/jojoee)
+* [@knksmith57](https://github.com/knksmith57)
 
 
 [Hexo]:                   http://hexo.io
