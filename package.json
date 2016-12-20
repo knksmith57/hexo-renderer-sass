@@ -19,6 +19,7 @@
     "url": "https://raw.github.com/tommy351/hexo/master/LICENSE"
   },
   "scripts": {
+    "eslint": "eslint .",
     "test": "mocha test/index.js",
     "test-cov": "istanbul cover --print both _mocha -- test/index.js"
   },
