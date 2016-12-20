@@ -23,7 +23,7 @@
     "test-cov": "istanbul cover --print both _mocha -- test/index.js"
   },
   "dependencies": {
-    "node-sass": "^3.2.2"
+    "node-sass": "^4.1.1"
   },
   "peerDependencies": {
     "hexo": ">= 1.0.0"
