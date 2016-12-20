@@ -19,7 +19,8 @@
     "url": "https://raw.github.com/tommy351/hexo/master/LICENSE"
   },
   "scripts": {
-    "test": "mocha test/index.js"
+    "test": "mocha test/index.js",
+    "test-cov": "istanbul cover --print both _mocha -- test/index.js"
   },
   "dependencies": {
     "node-sass": "^3.2.2"
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   }
 }
