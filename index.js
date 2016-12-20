@@ -1,3 +1,6 @@
+/* global hexo */
+'use strict';
+
 var sassRenderer = require('./lib/renderer');
 
 // associate the Sass renderer with .scss AND .sass extensions
