@@ -22,7 +22,7 @@ describe('Sass renderer', function() {
             '}'
         ].join('\n');
 
-        const result = r({ text: body }, {});
+        var result = r({ text: body }, {});
         result.should.eql([
                 '.foo {',
                 '  color: red; }'
@@ -41,7 +41,7 @@ describe('Sass renderer', function() {
             '}'
         ].join('\n');
 
-        const result = r({ text: body }, {});
+        var result = r({ text: body }, {});
         result.should.eql([
                 '.foo{color:red}'
             ].join('\n') + '\n');
@@ -59,7 +59,7 @@ describe('Sass renderer', function() {
             '}'
         ].join('\n');
 
-        const result = r({ text: body }, {});
+        var result = r({ text: body }, {});
         result.should.eql([
                 '.foo{color:red}'
             ].join('\n') + '\n');
