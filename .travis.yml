@@ -17,7 +17,7 @@ node_js:
   - "7"
 
 script:
-  - npm run eslint
+  - npm run lint
   - npm run test-cov
 
 after_script:
