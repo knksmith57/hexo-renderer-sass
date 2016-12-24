@@ -18,6 +18,9 @@
     "type": "MIT",
     "url": "https://raw.github.com/tommy351/hexo/master/LICENSE"
   },
+  "engines": {
+    "node": ">= 0.10"
+  },
   "dependencies": {
     "node-sass": "^3.2.2"
   },
