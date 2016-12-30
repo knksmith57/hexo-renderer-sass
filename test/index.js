@@ -24,7 +24,7 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    var result = r({ text: body }, {})
+    var result = r("scss")({ text: body }, {})
     result.should.eql([
       '.foo {',
       '  color: red; }'
@@ -38,7 +38,7 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    var result = r({ text: body }, {})
+    var result = r("sass")({ text: body }, {})
     result.should.eql([
       '.foo {',
       '  color: red; }'
@@ -56,7 +56,7 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    var result = r({ text: body }, {})
+    var result = r('scss')({ text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -72,7 +72,7 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    var result = r({ text: body }, {})
+    var result = r("sass")({ text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -90,7 +90,7 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    var result = r({ text: body }, {})
+    var result = r('scss')({ text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -107,7 +107,7 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    var result = r({ text: body }, {})
+    var result = r("sass")({ text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -125,7 +125,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     should.Throw(function () {
-      return r({ text: body }, {})
+      return r('scss')({ text: body }, {})
     })
   })
 
@@ -140,7 +140,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     should.Throw(function () {
-      return r({ text: body }, {})
+      return r("sass")({ text: body }, {})
     })
   })
 })
