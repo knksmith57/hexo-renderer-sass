@@ -14,10 +14,7 @@
     "renderer"
   ],
   "author": "Kyle Smith <knksmith57@gmail.com>",
-  "license": {
-    "type": "MIT",
-    "url": "https://raw.github.com/tommy351/hexo/master/LICENSE"
-  },
+  "license": "MIT",
   "scripts": {
     "lint": "standard",
     "test": "mocha test/index.js",
