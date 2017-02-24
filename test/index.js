@@ -12,8 +12,6 @@ describe('Sass renderer', function () {
     }
   }
 
-  global.hexo = ctx
-
   var r = require('../lib/renderer')
 
   it('default: scss syntax', function () {
@@ -24,7 +22,7 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    var result = r('scss')({ text: body }, {})
+    var result = r('scss').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo {',
       '  color: red; }'
@@ -38,7 +36,7 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    var result = r('sass')({ text: body }, {})
+    var result = r('sass').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo {',
       '  color: red; }'
@@ -47,7 +45,6 @@ describe('Sass renderer', function () {
 
   it('outputStyle compressed: scss syntax', function () {
     ctx.theme.config = { node_sass: { outputStyle: 'compressed' } }
-    global.hexo = ctx
 
     var body = [
       '$color: red;',
@@ -56,7 +53,7 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    var result = r('scss')({ text: body }, {})
+    var result = r('scss').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -64,7 +61,6 @@ describe('Sass renderer', function () {
 
   it('outputStyle compressed: sass syntax', function () {
     ctx.theme.config = { node_sass: { outputStyle: 'compressed' } }
-    global.hexo = ctx
 
     var body = [
       '$color: red',
@@ -72,7 +68,7 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    var result = r('sass')({ text: body }, {})
+    var result = r('sass').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -81,7 +77,6 @@ describe('Sass renderer', function () {
   it('supports root config: scss syntax', function () {
     ctx.config = { node_sass: { outputStyle: 'compressed' } }
     ctx.theme.config = {}
-    global.hexo = ctx
 
     var body = [
       '$color: red;',
@@ -90,7 +85,7 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    var result = r('scss')({ text: body }, {})
+    var result = r('scss').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -99,7 +94,6 @@ describe('Sass renderer', function () {
   it('supports root config: sass syntax', function () {
     ctx.config = { node_sass: { outputStyle: 'compressed' } }
     ctx.theme.config = {}
-    global.hexo = ctx
 
     var body = [
       '$color: red',
@@ -107,7 +101,7 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    var result = r('sass')({ text: body }, {})
+    var result = r('sass').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
     ].join('\n') + '\n')
@@ -116,7 +110,6 @@ describe('Sass renderer', function () {
   it('throw when error occurs: scss syntax', function () {
     ctx.theme.config = { node_sass: { outputStyle: 'compressed' } }
     ctx.config = {}
-    global.hexo = ctx
 
     var body = [
       '.foo {',
@@ -125,14 +118,13 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     should.Throw(function () {
-      return r('scss')({ text: body }, {})
-    })
+      return r('scss').call(ctx, { text: body }, {})
+    }, 'Undefined variable: "$color".')
   })
 
   it('throw when error occurs: sass syntax', function () {
     ctx.theme.config = { node_sass: { outputStyle: 'compressed' } }
     ctx.config = {}
-    global.hexo = ctx
 
     var body = [
       '.foo',
@@ -140,7 +132,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     should.Throw(function () {
-      return r('sass')({ text: body }, {})
-    })
+      return r('sass').call(ctx, { text: body }, {})
+    }, 'Undefined variable: "$color".')
   })
 })
