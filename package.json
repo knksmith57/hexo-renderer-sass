@@ -24,6 +24,7 @@
     "node": ">= 4"
   },
   "dependencies": {
+    "autoprefixer": "^6.7.6",
     "node-sass": "^4.1.1"
   },
   "peerDependencies": {
