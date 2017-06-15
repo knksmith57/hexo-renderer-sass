@@ -1,3 +1,10 @@
+#### 0.3.2 (2017-6-15)
+
+##### Chores
+
+* **travis:** replace 7 by latest node version ([58b6dbbd](https://github.com/knksmith57/hexo-renderer-sass/commit/58b6dbbdbefe675040e33377ce1681afb54d5338))
+* **package:** upgrade node-sass to version 4.5.3 ([610157e3](https://github.com/knksmith57/hexo-renderer-sass/commit/610157e39f8bafe44988b63795339bdb87b4c3e7))
+
 #### 0.3.1 (2017-2-24)
 
 ##### Chores
