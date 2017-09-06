@@ -24,7 +24,8 @@
     "node": ">= 4"
   },
   "dependencies": {
-    "node-sass": "^4.5.3"
+    "node-sass": "^4.5.3",
+    "node-sass-tilde-importer": "^1.0.0"
   },
   "peerDependencies": {
     "hexo": ">= 1.0.0"
