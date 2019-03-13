@@ -21,7 +21,7 @@
     "test-cov": "istanbul cover --print both _mocha -- test/index.js"
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 6"
   },
   "dependencies": {
     "node-sass": "^4.5.3"
