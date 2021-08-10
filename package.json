@@ -1,7 +1,7 @@
 {
   "name": "hexo-renderer-sass",
-  "version": "0.4.0",
-  "description": "Sass renderer plugin for Hexo",
+  "version": "0.4.1",
+  "description": "Sass renderer plugin for Hexo.",
   "main": "index",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "node": ">= 6"
   },
   "dependencies": {
-    "node-sass": "^4.5.3"
+    "node-sass": "^6.0.1"
   },
   "peerDependencies": {
     "hexo": ">= 3"
