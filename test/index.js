@@ -25,8 +25,9 @@ describe('Sass renderer', function () {
     var result = r('scss').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo {',
-      '  color: red; }'
-    ].join('\n') + '\n')
+      '  color: red;',
+      '}'
+    ].join('\n'))
   })
 
   it('default: sass syntax', function () {
@@ -39,8 +40,9 @@ describe('Sass renderer', function () {
     var result = r('sass').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo {',
-      '  color: red; }'
-    ].join('\n') + '\n')
+      '  color: red;',
+      '}'
+    ].join('\n'))
   })
 
   it('outputStyle compressed: scss syntax', function () {
@@ -56,7 +58,7 @@ describe('Sass renderer', function () {
     var result = r('scss').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
-    ].join('\n') + '\n')
+    ].join('\n'))
   })
 
   it('outputStyle compressed: sass syntax', function () {
@@ -71,7 +73,7 @@ describe('Sass renderer', function () {
     var result = r('sass').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
-    ].join('\n') + '\n')
+    ].join('\n'))
   })
 
   it('supports root config: scss syntax', function () {
@@ -88,7 +90,7 @@ describe('Sass renderer', function () {
     var result = r('scss').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
-    ].join('\n') + '\n')
+    ].join('\n'))
   })
 
   it('supports root config: sass syntax', function () {
@@ -104,7 +106,7 @@ describe('Sass renderer', function () {
     var result = r('sass').call(ctx, { text: body }, {})
     result.should.eql([
       '.foo{color:red}'
-    ].join('\n') + '\n')
+    ].join('\n'))
   })
 
   it('throw when error occurs: scss syntax', function () {
@@ -119,7 +121,7 @@ describe('Sass renderer', function () {
 
     should.Throw(function () {
       return r('scss').call(ctx, { text: body }, {})
-    }, 'Undefined variable: "$color".')
+    }, 'Undefined variable.\n  ╷\n2 │   color: $color;\n  │          ^^^^^^\n  ╵\n  stdin 2:10  root stylesheet')
   })
 
   it('throw when error occurs: sass syntax', function () {
@@ -133,6 +135,6 @@ describe('Sass renderer', function () {
 
     should.Throw(function () {
       return r('sass').call(ctx, { text: body }, {})
-    }, 'Undefined variable: "$color".')
+    }, 'Undefined variable.\n  ╷\n2 │   color: $color\n  │          ^^^^^^\n  ╵\n  stdin 2:10  root stylesheet')
   })
 })
