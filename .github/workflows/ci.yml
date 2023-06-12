@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: latest
-          cache: "npm"
       - name: Lint
         run: |
           npm run lint
@@ -43,7 +42,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
       - name: Test
         run: |
           npm run test
