@@ -1,0 +1,49 @@
+name: CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-coverage:
+    name: Test on Node.js Latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Use Node.js latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: "npm"
+      - name: Lint
+        run: |
+          npm run lint
+      - name: Generate coverage report
+        run: |
+          npm run test-cov
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+
+  test:
+    name: Test on Node.js
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 16, 14]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Use Node.js latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Test
+        run: |
+          npm run test
