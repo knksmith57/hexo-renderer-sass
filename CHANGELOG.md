@@ -1,3 +1,22 @@
+## 0.5.0 (2023-06-15)
+
+### Breaking
+- Use Dart Sass as node-sass is deprecated (#46)
+  Most `node-sass` options are supported by Dart Sass. However there are a few exceptions:
+  * The `precison` and `sourceComments` option are no longer supported
+  * `outputStyle` can be only `"expanded"` or `"compressed"`
+
+- Drop Node.js < 14 support (#52)
+
+## 0.4.0 (2019-03-13)
+
+### Breaking
+- Use hexo object in context
+- Drop Node.js 4 support
+
+### packages
+- Remove lockfile
+
 #### 0.3.2 (2017-6-15)
 
 ##### Chores
