@@ -18,10 +18,10 @@
   "scripts": {
     "lint": "standard",
     "test": "mocha test/index.js",
-    "test-cov": "istanbul cover --print both _mocha -- test/index.js"
+    "test-cov": "c8 --100 npm test"
   },
   "engines": {
-    "node": ">= 6"
+    "node": ">= 14"
   },
   "dependencies": {
     "sass": "^1.41.1"
@@ -30,9 +30,9 @@
     "hexo": ">= 3"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "standard": "^8.6.0"
+    "chai": "^4.3.7",
+    "c8": "^7.14.0",
+    "mocha": "^10.2.0",
+    "standard": "^17.1.0"
   }
 }
