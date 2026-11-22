@@ -28,6 +28,9 @@ node_sass:
 The legacy option names `outputStyle`, `includePaths` and `indentedSyntax` are
 still accepted and translated to `style`, `loadPaths` and `syntax`.
 
+As with the legacy API, stylesheets are also loaded relative to the current
+working directory, before any `loadPaths`.
+
 ### Inheritance
 The config object passed to Sass is constructed by merging properties from
 the following locations using a least-specific-first order:

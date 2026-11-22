@@ -206,4 +206,32 @@ describe('Sass renderer', function () {
     const result = r('scss').call(ctx, { text: body }, {})
     assert.strictEqual(result, '.foo {\n  width: 1px;\n}')
   })
+  it('resolves imports relative to the current working directory', function () {
+    ctx.theme.config = {}
+    ctx.config = {}
+
+    const body = [
+      '@use "include/sizes";',
+      '.foo {',
+      '  width: sizes.$size;',
+      '}'
+    ].join('\n')
+
+    const cwd = process.cwd()
+    process.chdir(path.join(__dirname, 'fixtures'))
+    try {
+      const result = r('scss').call(ctx, { text: body }, {})
+      assert.strictEqual(result, '.foo {\n  width: 1px;\n}')
+    } finally {
+      process.chdir(cwd)
+    }
+  })
+
+  it('translates legacy options before merging theme and root config', function () {
+    ctx.theme.config = { node_sass: { style: 'compressed' } }
+    ctx.config = { node_sass: { outputStyle: 'expanded' } }
+
+    const result = r('scss').call(ctx, { text: '.foo { color: red; }' }, {})
+    assert.strictEqual(result, '.foo {\n  color: red;\n}')
+  })
 })
