@@ -1,8 +1,11 @@
 'use strict'
 
-/* eslint-env mocha */
-
-const should = require('chai').should(); // eslint-disable-line
+const assert = require('assert')
+// Node.js 18+ runs this file with `node --test`. Node.js 14 and 16 have no
+// test runner CLI, so CI runs it there with mocha, which provides these globals.
+const { describe, it } = typeof globalThis.describe === 'function'
+  ? globalThis
+  : require('node:test')
 
 describe('Sass renderer', function () {
   const ctx = {
@@ -23,7 +26,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     const result = r('scss').call(ctx, { text: body }, {})
-    result.should.eql([
+    assert.strictEqual(result, [
       '.foo {',
       '  color: red;',
       '}'
@@ -38,7 +41,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     const result = r('sass').call(ctx, { text: body }, {})
-    result.should.eql([
+    assert.strictEqual(result, [
       '.foo {',
       '  color: red;',
       '}'
@@ -56,7 +59,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     const result = r('scss').call(ctx, { text: body }, {})
-    result.should.eql([
+    assert.strictEqual(result, [
       '.foo{color:red}'
     ].join('\n'))
   })
@@ -71,7 +74,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     const result = r('sass').call(ctx, { text: body }, {})
-    result.should.eql([
+    assert.strictEqual(result, [
       '.foo{color:red}'
     ].join('\n'))
   })
@@ -88,7 +91,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     const result = r('scss').call(ctx, { text: body }, {})
-    result.should.eql([
+    assert.strictEqual(result, [
       '.foo{color:red}'
     ].join('\n'))
   })
@@ -104,7 +107,7 @@ describe('Sass renderer', function () {
     ].join('\n')
 
     const result = r('sass').call(ctx, { text: body }, {})
-    result.should.eql([
+    assert.strictEqual(result, [
       '.foo{color:red}'
     ].join('\n'))
   })
@@ -119,9 +122,11 @@ describe('Sass renderer', function () {
       '}'
     ].join('\n')
 
-    should.Throw(function () {
+    assert.throws(function () {
       return r('scss').call(ctx, { text: body }, {})
-    }, 'Undefined variable.\n  ╷\n2 │   color: $color;\n  │          ^^^^^^\n  ╵\n  stdin 2:10  root stylesheet')
+    }, function (error) {
+      return error.message.includes('Undefined variable.\n  ╷\n2 │   color: $color;\n  │          ^^^^^^\n  ╵\n  stdin 2:10  root stylesheet')
+    })
   })
 
   it('throw when error occurs: sass syntax', function () {
@@ -133,8 +138,10 @@ describe('Sass renderer', function () {
       '  color: $color'
     ].join('\n')
 
-    should.Throw(function () {
+    assert.throws(function () {
       return r('sass').call(ctx, { text: body }, {})
-    }, 'Undefined variable.\n  ╷\n2 │   color: $color\n  │          ^^^^^^\n  ╵\n  stdin 2:10  root stylesheet')
+    }, function (error) {
+      return error.message.includes('Undefined variable.\n  ╷\n2 │   color: $color\n  │          ^^^^^^\n  ╵\n  stdin 2:10  root stylesheet')
+    })
   })
 })

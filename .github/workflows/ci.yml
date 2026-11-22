@@ -1,53 +1,105 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["master"]
+  pull_request:
 
 permissions:
   contents: read
 
 concurrency:
+  # Cancel superseded runs of the same pull request, let pushes to master finish.
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  test-coverage:
-    name: Test on Node.js Latest
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Use Node.js latest
-        uses: actions/setup-node@v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: latest
+          persist-credentials: false
+      - name: Use Node.js LTS
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
       - name: Install
         run: npm install
       - name: Lint
-        run: |
-          npm run lint
-      - name: Generate coverage report
-        run: |
-          npm run test-cov
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
+        run: npm run lint
   test:
-    name: Test on Node.js
-    runs-on: ubuntu-latest
+    name: Test (Node.js ${{ matrix.node-version }}, ${{ matrix.os }})
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    continue-on-error: ${{ matrix.experimental || false }}
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18, 16, 14]
+        include:
+          # Node.js 14 is the lowest version allowed by `engines`. Node.js 14
+          # and 16 have no `node --test` runner, so their tests run with mocha.
+          - node-version: 14
+            os: ubuntu-latest
+            mocha: true
+          - node-version: 16
+            os: ubuntu-latest
+            mocha: true
+          - node-version: 18
+            os: ubuntu-latest
+          - node-version: 20
+            os: ubuntu-latest
+          - node-version: 22
+            os: ubuntu-latest
+          - node-version: 24
+            os: ubuntu-latest
+          - node-version: 26
+            os: ubuntu-latest
+            coverage: true
+          - node-version: 26
+            os: windows-latest
+          # `latest` can resolve to a Node.js pre-release (alpha), so this job
+          # is an early warning only and must not fail the workflow.
+          - node-version: latest
+            os: ubuntu-latest
+            experimental: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Use Node.js latest
-        uses: actions/setup-node@v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: ${{ matrix.node-version }}
+          persist-credentials: false
+      - name: Use Node.js LTS # Install dependencies with the LTS release and its npm
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
+      # One command per step: on Windows (pwsh) only the last command's exit
+      # code fails a multi-line step.
       - name: Install
         run: npm install
+      - name: Install mocha
+        if: ${{ matrix.mocha }}
+        # mocha 10 is the last major version that supports Node.js 14.
+        run: npm install --no-save mocha@10
+      - name: Use Node.js ${{ matrix.node-version }} # Switch Node.js version for the test executor
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Test with mocha
+        if: ${{ matrix.mocha }}
+        run: npx mocha test/index.js
       - name: Test
-        run: |
-          npm run test
+        if: ${{ !matrix.mocha && !matrix.coverage }}
+        run: npm test
+      - name: Test with coverage
+        if: ${{ matrix.coverage }}
+        run: npm run test-cov
+      - name: Upload coverage report
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage

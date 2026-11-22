@@ -5,7 +5,7 @@
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "git://github.com/knksmith57/hexo-renderer-sass.git"
+    "url": "git+https://github.com/knksmith57/hexo-renderer-sass.git"
   },
   "keywords": [
     "hexo",
@@ -17,8 +17,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "standard",
-    "test": "mocha test/index.js",
-    "test-cov": "c8 --100 npm test"
+    "test": "node --test test/index.js",
+    "test-cov": "node --test --experimental-test-coverage --test-coverage-include=\"lib/**\" --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=coverage test/index.js"
   },
   "engines": {
     "node": ">= 14"
@@ -30,9 +30,6 @@
     "hexo": ">= 3"
   },
   "devDependencies": {
-    "chai": "^4.3.7",
-    "c8": "^7.14.0",
-    "mocha": "^10.2.0",
     "standard": "^17.1.0"
   }
 }
