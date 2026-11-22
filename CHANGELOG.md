@@ -1,3 +1,12 @@
+## Unreleased
+
+### Breaking
+- Bump `sass` to ^1.45.0, the first version with the modern JS API
+- Migrate from the deprecated legacy JS API (`sass.renderSync`) to the modern API (`sass.compileString`)
+  `node_sass` options are now passed to `compileString`, see the [modern API options](https://sass-lang.com/documentation/js-api/interfaces/stringoptions/).
+  * The legacy options `outputStyle`, `includePaths` and `indentedSyntax` are translated to `style`, `loadPaths` and `syntax`
+  * Other legacy-only options, such as `importer`, `functions`, `sourceMap` as a string, `indentType`, `indentWidth` and `linefeed`, are no longer supported or have a different signature
+
 ## 0.5.0 (2023-06-15)
 
 ### Breaking
