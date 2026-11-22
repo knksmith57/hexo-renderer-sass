@@ -1,4 +1,4 @@
-## Unreleased
+## 0.6.0 (2026-11-21)
 
 ### Breaking
 - Bump `sass` to ^1.45.0, the first version with the modern JS API
