@@ -24,7 +24,7 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "sass": "^1.41.1"
+    "sass": "^1.45.0"
   },
   "peerDependencies": {
     "hexo": ">= 3"
