@@ -32,7 +32,7 @@ jobs:
       - name: Lint
         run: npm run lint
   test:
-    name: Test (Node.js ${{ matrix.node-version }}, ${{ matrix.os }})
+    name: Test (Node.js ${{ matrix.node-version }}, ${{ matrix.os }}${{ matrix.sass && format(', sass {0}', matrix.sass) || '' }})
     needs: lint
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
@@ -49,6 +49,12 @@ jobs:
           - node-version: 16
             os: ubuntu-latest
             mocha: true
+          # sass 1.45.0 is the lowest version allowed by `dependencies`, the
+          # first with the modern JS API. Pair it with the lowest Node.js.
+          - node-version: 14
+            os: ubuntu-latest
+            mocha: true
+            sass: 1.45.0
           - node-version: 18
             os: ubuntu-latest
           - node-version: 20
@@ -80,6 +86,9 @@ jobs:
       # code fails a multi-line step.
       - name: Install
         run: npm install
+      - name: Install sass ${{ matrix.sass }}
+        if: ${{ matrix.sass }}
+        run: npm install --no-save sass@${{ matrix.sass }}
       - name: Install mocha
         if: ${{ matrix.mocha }}
         # mocha 10 is the last major version that supports Node.js 14.
